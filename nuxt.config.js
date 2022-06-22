@@ -17,6 +17,15 @@ export default {
     ]
   },
 
+  // runtime config
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL,
+  },
+  privateRuntimeConfig: {
+    apiId: process.env.PASSPORT_CLIENT_ID,
+    apiSecret: process.env.PASSPORT_CLIENT_SECRET,
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'ant-design-vue/dist/antd.css'
@@ -24,7 +33,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/antd-ui'
+    '@/plugins/antd-ui',
+    { src: '@/plugins/vee-validate.js', ssr: true },
+    { src: '@/plugins/components.js', ssr: true },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,24 +53,45 @@ export default {
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vee-validate']
+  },
 
   auth: {
+    redirect: {
+      home: '/',
+    },
     strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: '/auth'
+      laravelPassportPasswordGrant: {
+        name: 'laravelPassportPassword',
+        provider: 'laravel/passport',
+        url: '/api',
+        endpoints: {
+          user: {
+            url: '/api/auth/me',
+            logout: { url: '/api/auth/logout', method: 'post' },
+          },
+          logout: {
+
+          }
+        },
+        clientId: process.env.PASSPORT_PASSWORD_CLIENT_ID,
+        clientSecret: process.env.PASSPORT_PASSWORD_CLIENT_SECRET,
+        grantType: 'password',
       },
-    }
+    },
   },
 
   axios: {
     proxy: true,
-    debug: !process.env.PRODUCTION,
-    credentials: true
+    baseURL: process.env.API_URL
   },
 
   proxy: {
-    '/api/': process.env.API_URL
-  }
+    '/api': {
+      target: process.env.API_URL,
+      pathRewrite: { '^/api': '/' },
+      secure: false,
+    },
+  },
 }
