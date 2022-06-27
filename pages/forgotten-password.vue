@@ -3,7 +3,7 @@
     <v-row>
       <v-col offset-md="2" md="8">
         <v-card elevation="2" :loading="isLoading">
-          <v-card-title>Logowanie</v-card-title>
+          <v-card-title>Reset hasła</v-card-title>
           <v-card-text>
             <validation-observer
               ref="observer"
@@ -13,27 +13,13 @@
               <v-form ref="form" :disabled="isLoading" @submit.prevent="handleSubmit(handle)">
                 <validation-provider
                   v-slot="{ errors }"
-                  name="username"
+                  name="email"
                   rules="required|email"
                 >
                   <v-text-field
-                    v-model="form.username"
+                    v-model="form.email"
                     :error-messages="errors"
                     label="E-mail"
-                    required
-                  ></v-text-field>
-                </validation-provider>
-
-                <validation-provider
-                  v-slot="{ errors }"
-                  name="password"
-                  rules="required|min:8"
-                >
-                  <v-text-field
-                    v-model="form.password"
-                    :error-messages="errors"
-                    type="password"
-                    label="Hasło"
                     required
                   ></v-text-field>
                 </validation-provider>
@@ -45,14 +31,9 @@
                   block
                   class="mt-2"
                 >
-                  Zaloguj się
+                  Resetuj hasło
                 </v-btn>
               </v-form>
-
-              <div class="text-center text-decoration-underline mt-5">
-                <v-btn :to="{ name: 'forgotten-password' }" x-small text>Nie pamiętam hasła</v-btn>
-              </div>
-
             </validation-observer>
           </v-card-text>
         </v-card>
@@ -62,7 +43,7 @@
 </template>
 
 <script>
-import ResponseErrorsMixins from "~/mixins/ResponseErrorsMixins";
+import ResponseErrorsMixins from "@/mixins/ResponseErrorsMixins";
 
 export default {
   mixins: [ResponseErrorsMixins],
@@ -71,8 +52,7 @@ export default {
   data() {
     return {
       form: {
-        username: '',
-        password: '',
+        email: '',
       },
       error: null,
     }
@@ -81,20 +61,18 @@ export default {
     async handle() {
       this.isLoading = true
       try {
-        await this.$auth.loginWith('laravelPassportPassword', {data: this.form})
+        await this.$apiAuth.forgotten(this.form.email)
         await this.$router.push( {name: 'index' } )
+
+        this.$notifier.showMessage({
+          content: 'Jeżeli znaleźliśmy Twoje konto to na podany adres email wysłana została wiadomość zmieniająca Twoje hasło. Sprawdź skrzynkę pocztową.',
+          color: 'green',
+          timeout: 10000
+        })
+
         this.isLoading = false
       } catch (e) {
-        this.isLoading = false
-        const {response} = e
-
-        if (response.status === 400) {
-          this.$refs[this.observerRef].setErrors({
-            username: ['Nieprawidłowe logowanie']
-          })
-        } else {
-          this.handleErrors(e)
-        }
+        this.handleErrors(e)
       }
     },
   },

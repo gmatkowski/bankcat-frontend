@@ -33,9 +33,15 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/axios',
     '@/plugins/antd-ui',
-    { src: '@/plugins/vee-validate.js', ssr: true },
-    { src: '@/plugins/components.js', ssr: true },
+    '@/plugins/vee-validate.js',
+    '@/plugins/moment.js',
+    '@/plugins/components.js',
+    '@/plugins/api.js',
+    '@/plugins/notifier.js',
+    '@/plugins/filters.js',
+    { src : '~/plugins/vue-apexchart.js', ssr : false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -66,6 +72,9 @@ export default {
         name: 'laravelPassportPassword',
         provider: 'laravel/passport',
         url: '/api',
+        user: {
+          property: 'data'
+        },
         endpoints: {
           user: {
             url: '/api/auth/me',
@@ -93,5 +102,5 @@ export default {
       pathRewrite: { '^/api': '/' },
       secure: false,
     },
-  },
+  }
 }
