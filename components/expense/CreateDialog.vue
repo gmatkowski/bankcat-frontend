@@ -2,6 +2,8 @@
   <v-dialog
     v-model="dialog"
     max-width="600px"
+    @keydown="close"
+    @click:outside="close"
   >
 
     <v-card :loading="isLoading">
@@ -81,7 +83,7 @@
   </v-dialog>
 </template>
 <script>
-import ResponseErrorsMixins from "~/mixins/ResponseErrorsMixins";
+import ResponseErrorsMixins from "@/mixins/ResponseErrorsMixins";
 
 export default {
   mixins: [ResponseErrorsMixins],
@@ -143,7 +145,7 @@ export default {
 
         this.isLoading = false
 
-        this.$route.push({ name: 'expense' })
+        await this.$router.push({ name: 'expense' })
 
         this.close()
       }
