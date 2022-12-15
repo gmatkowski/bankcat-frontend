@@ -3,16 +3,15 @@
     <v-app-bar color="#84CEEB" height="100px" x-large expand>
       <v-container class="d-flex align-content-center flex-wrap">
         <v-toolbar-title class="d-flex" dark>
-          <v-btn :to="{ name: 'index' }" plain>
-            <v-icon color="white" class="mr-4" x-large>
-              mdi-piggy-bank-outline
-            </v-icon>
+          <v-btn :to="{ name: 'index' }" plain >
+            <img src="/bankcat_logo.png" width="40px" height="40px" class="mr-2"><img>
             {{ title }}
           </v-btn>
         </v-toolbar-title>
+        
       </v-container>
-        <v-spacer></v-spacer>
-
+      <v-spacer></v-spacer>
+        
       <div class="align-center d-none d-sm-flex">
         <template v-if="!$auth.loggedIn">
           <v-btn :to="{ name: 'login' }" color="white" text rounded class="my-4 mr-4" elevation="9" outlined large>
