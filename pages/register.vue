@@ -4,7 +4,7 @@
     <v-row>
       <v-col class="margin">
         <v-card elevation="0" :loading="isLoading" color="rgba(0,0,0,0)">
-          <img src="../src/assets/savings.png" width="70%" class="center"><img>
+          <img src="../src/assets/bankcat.png" class="center"><img>
           <v-card-title class="justify-center">Rejestracja</v-card-title>
           <v-card-text>
             <validation-observer
@@ -176,7 +176,7 @@ export default {
   margin-right: auto;
   margin-left: auto;
   width: auto;
-  max-width: 50%;
+  max-width: 500px;
   margin-top: 5%;
   margin-bottom: 5%;
   
@@ -190,7 +190,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 90px;
+  max-width: 80%;
 }
 
 </style>
