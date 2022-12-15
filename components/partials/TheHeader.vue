@@ -1,29 +1,30 @@
 <template>
-  <div>
-    <v-app-bar color="blue accent-4" dark>
-      <v-toolbar-title class="d-flex">
-        <v-btn :to="{ name: 'index' }" plain>
-          <v-icon color="white" dark class="mr-3">
-            mdi-bank-transfer
-          </v-icon>
-          {{ title }}
-        </v-btn>
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
+  <div class="align-center">
+    <v-app-bar color="#84CEEB" height="100px" x-large expand>
+      <v-container class="d-flex align-content-center flex-wrap">
+        <v-toolbar-title class="d-flex" dark>
+          <v-btn :to="{ name: 'index' }" plain>
+            <v-icon color="white" class="mr-4" x-large>
+              mdi-piggy-bank-outline
+            </v-icon>
+            {{ title }}
+          </v-btn>
+        </v-toolbar-title>
+      </v-container>
+        <v-spacer></v-spacer>
 
       <div class="align-center d-none d-sm-flex">
         <template v-if="!$auth.loggedIn">
-          <v-btn :to="{ name: 'login' }" color="white" text rounded class="my-2">
+          <v-btn :to="{ name: 'login' }" color="white" text rounded class="my-4 mr-4" elevation="9" outlined large>
             Logowanie
           </v-btn>
-          <v-btn :to="{ name: 'register' }" color="white" text rounded class="my-2">
+          <v-btn :to="{ name: 'register' }" color="white" text rounded class="my-4 mr-4"  elevation="9" outlined large>
             Rejestracja
           </v-btn>
         </template>
         <template v-if="$auth.loggedIn">
 
-          <v-btn :to="{ name: 'profile-edit' }" color="black" depressed rounded class="mr-2">
+          <v-btn :to="{ name: 'profile-edit' }" color="red" depressed rounded class="mr-2">
             <v-icon class="mr-2">
               mdi-account
             </v-icon>
@@ -84,3 +85,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.header-color{
+  /*background-image: radial-gradient(circle at 50% 250.71%, #f9fb64 0, #e6f85d 16.67%, #d2f558 33.33%, #bcf253 50%, #a5ef50 66.67%, #8ceb50 83.33%, #6fe853 100%);*/
+}
+</style>

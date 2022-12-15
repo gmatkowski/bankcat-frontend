@@ -1,9 +1,11 @@
 <template>
-  <v-container class="mt-10">
+<div class="background-color fill-height">
+  <v-container>
     <v-row>
-      <v-col offset-md="2" md="8">
-        <v-card elevation="2" :loading="isLoading">
-          <v-card-title>Rejestracja</v-card-title>
+      <v-col class="margin">
+        <v-card elevation="0" :loading="isLoading" color="rgba(0,0,0,0)">
+          <img src="../src/assets/savings.png" width="70%" class="center"><img>
+          <v-card-title class="justify-center">Rejestracja</v-card-title>
           <v-card-text>
             <validation-observer
               ref="observer"
@@ -111,6 +113,7 @@
       </v-col>
     </v-row>
   </v-container>
+</div>
 </template>
 
 <script>
@@ -130,6 +133,20 @@ export default {
         password_confirmation: ''
       },
       error: null,
+      colors:[
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      slides:[
+        'First',
+        'Second',
+        'Third',
+        'Fourth',
+        'Fifth',
+      ]
     }
   },
   methods: {
@@ -154,3 +171,26 @@ export default {
   },
 }
 </script>
+<style>
+.margin{
+  margin-right: auto;
+  margin-left: auto;
+  width: auto;
+  max-width: 50%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  
+}
+.background-color{
+  background-image: linear-gradient(#C1C8E4, #5AB9EA);
+  margin-top:auto;
+  margin-bottom: auto;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90px;
+}
+
+</style>
